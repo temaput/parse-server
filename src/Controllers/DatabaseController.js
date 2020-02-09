@@ -1715,18 +1715,22 @@ class DatabaseController {
     );
 
     const usernameUniqueness = userClassPromise
+    /*
       .then(() =>
         this.adapter.ensureUniqueness('_User', requiredUserFields, ['username'])
       )
+      */
       .catch(error => {
         logger.warn('Unable to ensure uniqueness for usernames: ', error);
         throw error;
       });
 
     const emailUniqueness = userClassPromise
+    /*
       .then(() =>
         this.adapter.ensureUniqueness('_User', requiredUserFields, ['email'])
       )
+      */
       .catch(error => {
         logger.warn(
           'Unable to ensure uniqueness for user email addresses: ',
@@ -1751,10 +1755,8 @@ class DatabaseController {
       VolatileClassesSchemas: SchemaController.VolatileClassesSchemas,
     });
     return Promise.all([
-      /*
       usernameUniqueness,
       emailUniqueness,
-      */
       roleUniqueness,
       adapterInit,
       indexPromise,
