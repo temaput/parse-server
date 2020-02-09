@@ -42,6 +42,7 @@ const defaultColumns: { [string]: SchemaFields } = Object.freeze({
     username: { type: 'String' },
     password: { type: 'String' },
     email: { type: 'String' },
+    region: {type: 'String'},
     emailVerified: { type: 'Boolean' },
     authData: { type: 'Object' },
   },

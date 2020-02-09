@@ -45,7 +45,16 @@ export class UsersRouter extends ClassesRouter {
       ) {
         payload = req.query;
       }
-      const { username, email, password } = payload;
+      const { username, email, password, region } = payload;
+
+      // check region first
+      if (!region) {
+        throw new Parse.Error(
+          Parse.Error.USERNAME_MISSING,
+          'region is required.'
+        );
+
+      }
 
       // TODO: use the right error codes / descriptions.
       if (!username && !email) {
@@ -75,11 +84,11 @@ export class UsersRouter extends ClassesRouter {
       let isValidPassword = false;
       let query;
       if (email && username) {
-        query = { email, username };
+        query = { email, username, region };
       } else if (email) {
-        query = { email };
+        query = { email, region };
       } else {
-        query = { $or: [{ username }, { email: username }] };
+        query = { $or: [{ username, region }, { email: username, region }] };
       }
       return req.config.database
         .find('_User', query)
